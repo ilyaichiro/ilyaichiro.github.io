@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影天堂lol-高分电影推荐与LOL玩家影视指南</title>
+    <meta name="description" content="电影天堂lol为电影爱好者和英雄联盟玩家提供电影推荐、LOL相关影视资讯、新片预告、经典影片解析及游戏与电影跨界内容。">
+    <meta name="keywords" content="电影天堂,lol,英雄联盟电影,电影推荐,新片上映,游戏电影,影视资讯">
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* header */
+        .site-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 18px 0;
+            border-bottom: 3px solid #e94560;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+        .logo span {
+            color: #e94560;
+        }
+        .logo small {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        .nav-menu li a {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-menu li a:hover,
+        .nav-menu li.active a {
+            color: #e94560;
+            border-bottom-color: #e94560;
+        }
+        /* hero */
+        .hero-section {
+            background: linear-gradient(145deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+            color: #fff;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(233, 69, 96, 0.2);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        .hero-text h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .hero-text h2 span {
+            color: #e94560;
+        }
+        .hero-text p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hero-tags .tag {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero-poster {
+            flex: 0 0 280px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+        }
+        .hero-poster .big-icon {
+            font-size: 80px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .hero-poster h3 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .hero-poster p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        /* section common */
+        .section-block {
+            margin-bottom: 45px;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #e94560;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .section-title .more-link {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        .section-title .more-link:hover {
+            color: #e94560;
+        }
+        /* movie cards */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .movie-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .movie-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        .movie-poster {
+            height: 210px;
+            background: linear-gradient(135deg, #2c3e50, #4a6b8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: rgba(255, 255, 255, 0.6);
+            position: relative;
+        }
+        .movie-poster .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e94560;
+            color: #fff;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .movie-info {
+            padding: 14px 12px;
+        }
+        .movie-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #95a5a6;
+        }
+        .movie-meta .score {
+            color: #f39c12;
+            font-weight: 700;
+        }
+        /* lol section */
+        .lol-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+        }
+        .lol-content {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .lol-text {
+            flex: 2;
+            min-width: 280px;
+        }
+        .lol-text p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .lol-text strong {
+            color: #e94560;
+        }
+        .lol-list {
+            flex: 1;
+            min-width: 240px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .lol-list h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+        .lol-list ul {
+            list-style: none;
+        }
+        .lol-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            font-size: 14px;
+        }
+        .lol-list li:last-child {
+            border-bottom: none;
+        }
+        /* ranking */
+        .rank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .rank-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+            transition: background 0.3s;
+        }
+        .rank-item:hover {
+            background: #fef5f6;
+        }
+        .rank-num {
+            font-size: 22px;
+            font-weight: 800;
+            color: #bdc3c7;
+            width: 30px;
+            text-align: center;
+        }
+        .rank-item:nth-child(1) .rank-num {
+            color: #e94560;
+        }
+        .rank-item:nth-child(2) .rank-num {
+            color: #e67e22;
+        }
+        .rank-item:nth-child(3) .rank-num {
+            color: #f1c40f;
+        }
+        .rank-info {
+            flex: 1;
+        }
+        .rank-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .rank-info p {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        .rank-score {
+            font-weight: 700;
+            color: #e94560;
+        }
+        /* two column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 45px;
+        }
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* article list */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .article-item {
+            display: flex;
+            gap: 15px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+        }
+        .article-thumb {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        .article-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+        .article-content h4:hover {
+            color: #e94560;
+        }
+        .article-content p {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        /* faq */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px 20px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+        }
+        .faq-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #1a1a2e;
+        }
+        .faq-item p {
+            font-size: 14px;
+            color: #555;
+        }
+        /* footer */
+        .site-footer {
+            background: #1a1a2e;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 30px 0 20px;
+            margin-top: 50px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        .footer-links a:hover {
+            color: #e94560;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+        }
+        /* resp */
+        @media (max-width: 992px) {
+            .nav-menu {
+                gap: 15px;
+            }
+            .hero-text h2 {
+                font-size: 32px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+            .hero-tags {
+                justify-content: center;
+            }
+            .hero-poster {
+                flex: 0 0 auto;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+        }
+        @media (max-width: 480px) {
+            .movie-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .movie-poster {
+                height: 150px;
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="logo">
+            🎬 电影天堂<span>lol</span>
+            <small>影视 &amp; 游戏文化聚集地</small>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#">电影库</a></li>
+                <li><a href="#">LOL影视</a></li>
+                <li><a href="#">新片预告</a></li>
+                <li><a href="#">榜单</a></li>
+                <li><a href="#">游戏电影</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- hero -->
+    <section class="hero-section">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h2>电影与<span>英雄联盟</span><br>双重视觉盛宴</h2>
+                <p>探索与LOL世界观相关的优秀影视作品，发现游戏之外的故事。从CG动画到玩家自制影片，这里汇集电影爱好者和召唤师共同关注的精彩内容。</p>
+                <div class="hero-tags">
+                    <span class="tag">🎬 电影推荐</span>
+                    <span class="tag">🎮 LOL动画</span>
+                    <span class="tag">🔥 新片速递</span>
+                    <span class="tag">🏆 高分榜单</span>
+                </div>
+            </div>
+            <div class="hero-poster">
+                <div class="big-icon">🎥</div>
+                <h3>本周观影指南</h3>
+                <p>最新影视资讯与游戏CG精选</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 电影推荐 -->
+    <div class="container">
+        <section class="section-block">
+            <div class="section-title">
+                <h2>热门电影推荐</h2>
+                <a href="#" class="more-link">更多影片 →</a>
+            </div>
+            <div class="movie-grid">
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        🧙
+                        <span class="badge">热映</span>
+                    </div>
+                    <div class="movie-info">
+                        <h3>双城之战</h3>
+                        <div class="movie-meta">
+                            <span>2024 · 动画</span>
+                            <span class="score">9.2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        ⚔️
+                        <span class="badge">经典</span>
+                    </div>
+                    <div class="movie-info">
+                        <h3>破败之王：雾隐</h3>
+                        <div class="movie-meta">
+                            <span>2023 · 奇幻</span>
+                            <span class="score">8.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        🤖
+                    </div>
+                    <div class="movie-info">
+                        <h3>英雄联盟：起源</h3>
+                        <div class="movie-meta">
+                            <span>2022 · 纪录</span>
+                            <span class="score">8.9</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        🌌
+                        <span class="badge">新片</span>
+                    </div>
+                    <div class="movie-info">
+                        <h3>艾欧尼亚传说</h3>
+                        <div class="movie-meta">
+                            <span>2025 · 动作</span>
+                            <span class="score">期待</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOL与电影结合 -->
+        <section class="section-block">
+            <div class="section-title">
+                <h2>LOL与电影宇宙</h2>
+                <a href="#" class="more-link">探索更多 →</a>
+            </div>
+            <div class="lol-section">
+                <div class="lol-content">
+                    <div class="lol-text">
+                        <p><strong>电影天堂lol</strong> 专注挖掘英雄联盟IP衍生影视内容。从官方动画剧集到玩家创作的精彩短片，我们为你筛选值得一看的作品。</p>
+                        <p>随着《双城之战》等作品的成功，英雄联盟的世界观正通过影视形式不断扩展。皮尔特沃夫与祖安的蒸汽朋克风格、艾欧尼亚的东方韵味、暗影岛的哥特恐怖——每个地区都有独特的视觉语言。</p>
+                        <p>无论你是想找一部游戏闲暇时的下饭剧，还是希望深入了解LOL的背景故事，这里都能提供有价值的参考。</p>
+                    </div>
+                    <div class="lol-list">
+                        <h4>🎯 热门LOL影视话题</h4>
+                        <ul>
+                            <li>🔹 双城之战第二季解析</li>
+                            <li>🔹 各英雄CG动画合集</li>
+                            <li>🔹 玩家自制LOL电影</li>
+                            <li>🔹 游戏改编电影盘点</li>
+                            <li>🔹 LOL世界观编年史</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 双栏: 榜单 + 最新动态 -->
+        <div class="two-col">
+            <section>
+                <div class="section-title">
+                    <h2>本周热度榜</h2>
+                    <a href="#" class="more-link">完整榜单 →</a>
+                </div>
+                <div class="rank-list">
+                    <div class="rank-item">
+                        <div class="rank-num">1</div>
+                        <div class="rank-info">
+                            <h4>《双城之战》第一季</h4>
+                            <p>动画剧集 · 全9集</p>
+                        </div>
+                        <div class="rank-score">9.4</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">2</div>
+                        <div class="rank-info">
+                            <h4>《英雄联盟：双城之战》幕后纪录</h4>
+                            <p>纪录片 · 1小时</p>
+                        </div>
+                        <div class="rank-score">9.1</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">3</div>
+                        <div class="rank-info">
+                            <h4>《破败之王》CG合集</h4>
+                            <p>游戏CG · 短片</p>
+                        </div>
+                        <div class="rank-score">8.8</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">4</div>
+                        <div class="rank-info">
+                            <h4>《K/DA》音乐短片</h4>
+                            <p>音乐视频 · 多部</p>
+                        </div>
+                        <div class="rank-score">8.6</div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">5</div>
+                        <div class="rank-info">
+                            <h4>《灵魂莲华》动画短片</h4>
+                            <p>动画 · 短篇</p>
+                        </div>
+                        <div class="rank-score">8.5</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>最新影视资讯</h2>
+                </div>
+                <div class="article-list">
+                    <div class="article-item">
+                        <div class="article-thumb">📰</div>
+                        <div class="article-content">
+                            <h4>双城之战第二季预告分析</h4>
+                            <p>2025-06-15 · 深度解读</p>
+                        </div>
+                    </div>
+                    <div class="article-item">
+                        <div class="article-thumb">🎞️</div>
+                        <div class="article-content">
+                            <h4>LOL新英雄动画短片发布</h4>
+                            <p>2025-06-12 · 官方消息</p>
+                        </div>
+                    </div>
+                    <div class="article-item">
+                        <div class="article-thumb">🎮</div>
+                        <div class="article-content">
+                            <h4>游戏改编电影发展趋势</h4>
+                            <p>2025-06-08 · 行业观察</p>
+                        </div>
+                    </div>
+                    <div class="article-item">
+                        <div class="article-thumb">🍿</div>
+                        <div class="article-content">
+                            <h4>适合与朋友一起看的LOL动画</h4>
+                            <p>2025-06-02 · 片单推荐</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- FAQ -->
+        <section class="section-block">
+            <div class="section-title">
+                <h2>常见问题</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>Q: 电影天堂lol主要提供什么内容？</h4>
+                    <p>A: 本站聚焦电影推荐与英雄联盟相关影视内容，包括官方动画、游戏CG、玩家创作以及游戏改编电影资讯，同时提供观影指南和内容解读。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: 哪里可以观看《双城之战》？</h4>
+                    <p>A: 《双城之战》作为Riot官方动画剧集，可通过腾讯视频等主流平台观看。具体播放渠道可能随地区而异，建议查询当地正版授权平台。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: LOL有哪些值得看的CG动画？</h4>
+                    <p>A: 值得推荐的有《觉醒》《破败之王》《灵魂莲华》《K/DA》系列以及每年全球总决赛的主题CG，这些作品在画面和叙事上都很有水准。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: 游戏玩家适合看哪些电影？</h4>
+                    <p>A: 除了LOL相关内容，喜欢游戏文化的观众可以关注《头号玩家》《无敌破坏王》《失控玩家》等以游戏世界为背景的影片。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <div class="logo" style="font-size: 20px;">🎬 电影天堂<span>lol</span></div>
+                <p style="margin-top: 10px; font-size: 14px;">连接电影与游戏文化的桥梁</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">内容合作</a>
+                <a href="#">版权声明</a>
+                <a href="#">联系方式</a>
+                <a href="#">友情链接</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 电影天堂lol 保留所有权利 · 本页面仅为影视资讯与文化交流
+        </div>
+    </div>
+</footer>
+
+</body>
+                          </html>
